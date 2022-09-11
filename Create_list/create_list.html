@@ -1,0 +1,94 @@
+<!-- Oscar Chiqui | Web Client Server - create_list.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Guest List </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- The bootstrap link  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- The google font link  -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Qwitcher+Grypen&family=Roboto:wght@100&family=Ubuntu:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+
+    <!-- The css stylesheet  -->
+    <link rel="stylesheet" href="create_list.css">
+
+</head>
+<body>
+
+<!-- A jumbotron to show design and a bit of customization.  -->
+    <div class="jumbotron">
+
+        <h1>Event Guest List 2022 </h1>
+        
+        <p>The Guest list will be 10 people, of which will be full names without abbreviations.<br>
+        Names that are too long cannot be added to the list.</p>
+    </div>
+<!-- The paragraph text , the add and clear button  
+Reference W3 schools : https://www.w3schools.com/jsref/met_form_reset.asp -->
+
+    <p>Enter the name of your <b>Guest ! </b> </p>
+    <input id="new-text"></input>
+    <button id="add-text">Add</button>
+    <button id="reset-text">Clear</button> 
+
+    <ul id="text-list"></ul>
+
+<script>
+
+
+    let textInput = document.querySelector("#new-text");
+    let addButton = document.querySelector("#add-text");
+    let clearButton = document.querySelector("#reset-text");
+    let textList = document.querySelector("#text-list");
+
+    //enter key clicks add button
+    document.addEventListener("keyup", function() {
+        if (event.keyCode == 13)
+            addButton.click();
+    })
+
+    //add button functionality
+    addButton.addEventListener("click", function() {
+        //prevent more than 10 items added to list
+        if (textList.children.length >= 10) {
+            alert("You can only add 10 items to the list!");
+            return;
+        }
+
+        //When we type text in the input
+        let newText = textInput.value;
+
+        // Prevent the user adding more than 10 items to the list. If the clear button is clicked, the user may keep adding items. 
+        if (newText.length == 0) {
+            alert("Please enter text.");
+            return;
+        }
+
+        //The form should only accept text of length between 1 and 50 characters.
+        if (newText.length > 50) {
+            alert("The form only accept text of length between 1 and 50 characters.");
+            return;
+        }
+
+        //Create new li element
+        let newListItem = document.createElement("li");
+        //li element text is from input
+        newListItem.innerHTML = newText;
+        //Add new li as child of ul
+        textList.appendChild(newListItem);
+        //Clear text in input
+        textInput.value = "";
+    })
+
+    //Clear button functionality
+    clearButton.addEventListener("click", function() {
+        textList.innerHTML = "";
+    })
+
+</script>
+</body>
+</html>
